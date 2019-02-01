@@ -1,13 +1,33 @@
 package com.shaatla.testapp;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+import android.os.Bundle;
+import android.widget.TextView;
+
+import com.shaatla.testapp.injections.MainActivityComponent;
+import com.shaatla.testapp.injections.ServerConnectionModule;
+
+import javax.inject.Inject;
+
+public class MainActivity extends AppCompatActivity implements MainView {
+
+    @Inject
+    MainActivityPresenter mainActivityPresenter;
+
+    @BindView(R.id.textView)
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        MainActivityComponent mainActivityComponent = DaggerMainActivityComponent.builder()
+                .appModule(new ServerConnectionModule(this))
+                .build();
     }
 }
