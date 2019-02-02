@@ -1,6 +1,7 @@
 package com.shaatla.testapp.injections;
 
 import com.shaatla.testapp.MainActivity;
+import com.shaatla.testapp.interactros.PersonalDataInteractor;
 
 import dagger.Component;
 import dagger.Provides;
@@ -13,7 +14,7 @@ import dagger.Provides;
  * dmitry.mochalov@auriga.com
  * Copyright (c) 2019 Auriga Inc. All rights reserved.
  */
-@Component(modules = ServerConnectionModule.class)
+@Component(modules = {ServerConnectionModule.class})
 public interface MainActivityComponent {
     void inject(MainActivity mainActivity);
 }

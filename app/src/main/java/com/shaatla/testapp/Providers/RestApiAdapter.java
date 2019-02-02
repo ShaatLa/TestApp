@@ -24,10 +24,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RestApiAdapter {
 
-    private static final String URL = "https://intern-f6251.firebaseio.com/intern";
+    private static final String BaseURL = "https://intern-f6251.firebaseio.com/intern";
 
-    private ApiRequests apiRequests;
     private static RestApiAdapter instance;
+    private static ApiRequests apiRequests;
 
     public static RestApiAdapter getInstance() {
         if (instance == null) {
@@ -39,10 +39,9 @@ public class RestApiAdapter {
     }
 
     private void init() {
-        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        clientBuilder.addInterceptor(loggingInterceptor);
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
+                .addInterceptor(new HttpLoggingInterceptor()
+                        .setLevel(HttpLoggingInterceptor.Level.BODY));
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, (JsonDeserializer<Date>) (json, typeOfT, context) -> new Date(json.getAsJsonPrimitive().getAsLong()))
@@ -50,7 +49,7 @@ public class RestApiAdapter {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
+                .baseUrl(BaseURL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(clientBuilder.build())

@@ -6,6 +6,7 @@ import com.shaatla.testapp.interactros.PersonalDataInteractor;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -20,32 +21,17 @@ import io.reactivex.observers.DisposableObserver;
  */
 public class MainActivityPresenter {
 
-    PersonalDataInteractor personalDataInteractor;
+    PersonalDataInteractor personalDataInteractor = new PersonalDataInteractor();
 
     @Inject
-    public MainActivityPresenter(PersonalDataInteractor personalDataInteractor) {
-        this.personalDataInteractor = personalDataInteractor;
+    public MainActivityPresenter() {
+        //this.personalDataInteractor = personalDataInteractor;
     }
 
     public void getData() {
-        personalDataInteractor.execute(new Observer<ServerResponce>() {
+        personalDataInteractor.execute(new Observable<ServerResponce>() {
             @Override
-            public void onSubscribe(Disposable d) {
-            }
-
-            @Override
-            public void onNext(ServerResponce serverResponce) {
-                serverResponce.getPersonalData();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
+            protected void subscribeActual(Observer<? super ServerResponce> observer) {
             }
         });
     }

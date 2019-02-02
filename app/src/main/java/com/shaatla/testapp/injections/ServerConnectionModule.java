@@ -3,6 +3,7 @@ package com.shaatla.testapp.injections;
 import android.content.Context;
 
 import com.shaatla.testapp.Providers.ServerConnectionProvider;
+import com.shaatla.testapp.interactros.PersonalDataInteractor;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,5 +30,4 @@ public class ServerConnectionModule {
     ServerConnectionProvider getServerConnectionProvider() {
         return new ServerConnectionProvider(context);
     }
-
 }
