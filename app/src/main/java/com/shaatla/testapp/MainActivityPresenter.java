@@ -1,5 +1,8 @@
 package com.shaatla.testapp;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.shaatla.testapp.Models.PersonalData;
 import com.shaatla.testapp.Models.ServerResponce;
 import com.shaatla.testapp.interactros.PersonalDataInteractor;
@@ -21,18 +24,13 @@ import io.reactivex.observers.DisposableObserver;
  */
 public class MainActivityPresenter {
 
-    PersonalDataInteractor personalDataInteractor = new PersonalDataInteractor();
+    PersonalDataInteractor personalDataInteractor;
 
     @Inject
     public MainActivityPresenter() {
-        //this.personalDataInteractor = personalDataInteractor;
     }
 
     public void getData() {
-        personalDataInteractor.execute(new Observable<ServerResponce>() {
-            @Override
-            protected void subscribeActual(Observer<? super ServerResponce> observer) {
-            }
-        });
+        personalDataInteractor.execute();
     }
 }

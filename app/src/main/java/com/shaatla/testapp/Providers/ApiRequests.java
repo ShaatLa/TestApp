@@ -15,6 +15,6 @@ import retrofit2.http.GET;
  */
 public interface ApiRequests {
 
-    @GET("/metric.json")
+    @GET("metric.json")
     Observable<ServerResponce> getJson();
 }

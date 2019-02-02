@@ -7,6 +7,7 @@ import butterknife.ButterKnife;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.shaatla.testapp.Models.PersonalData;
 import com.shaatla.testapp.injections.DaggerMainActivityComponent;
 import com.shaatla.testapp.injections.MainActivityComponent;
 import com.shaatla.testapp.injections.ServerConnectionModule;
@@ -27,9 +28,15 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        MainActivityComponent mainActivityComponent = DaggerMainActivityComponent.builder().build();
+        DaggerMainActivityComponent
+                .builder()
+                .build()
+                .inject(this);
 
-        mainActivityComponent.inject(this);
         mainActivityPresenter.getData();
+    }
+
+    public void showData(PersonalData personalData) {
+        textView.setText(personalData.getDate());
     }
 }

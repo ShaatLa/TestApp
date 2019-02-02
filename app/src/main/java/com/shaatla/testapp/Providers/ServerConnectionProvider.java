@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.shaatla.testapp.Models.ServerResponce;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 
 /**
@@ -16,10 +18,7 @@ import io.reactivex.Observable;
  */
 public class ServerConnectionProvider {
 
-    private Context context;
-
-    public ServerConnectionProvider(Context context) {
-        this.context = context;
+    public ServerConnectionProvider() {
     }
 
     public Observable<ServerResponce> getJson() {

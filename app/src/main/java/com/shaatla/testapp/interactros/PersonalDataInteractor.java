@@ -1,7 +1,15 @@
 package com.shaatla.testapp.interactros;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+
+import com.shaatla.testapp.MainActivity;
 import com.shaatla.testapp.Models.PersonalData;
 import com.shaatla.testapp.Models.ServerResponce;
+import com.shaatla.testapp.Providers.ServerConnectionProvider;
+import com.shaatla.testapp.injections.ServerConnectionModule;
+
 import javax.inject.Inject;
 
 import dagger.Module;
@@ -24,18 +32,37 @@ import io.reactivex.schedulers.Schedulers;
  * Copyright (c) 2019 Auriga Inc. All rights reserved.
  */
 
-public class PersonalDataInteractor<ResultType, ParameterType> {
+public class PersonalDataInteractor {
 
+    PersonalData personalData;
 
-    public PersonalDataInteractor() {
+    public void execute() {
+        Observable<ServerResponce> result = new ServerConnectionProvider().getJson();
+        result.subscribe(new Observer<ServerResponce>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                System.out.println("\nSubscribed\n");
+            }
+
+            @Override
+            public void onNext(ServerResponce serverResponce) {
+                personalData = serverResponce.getPersonalData().get(0);
+                sendData();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                System.out.println("\nError\n");
+            }
+
+            @Override
+            public void onComplete() {
+                System.out.println("\nComplete\n");
+            }
+        });
     }
 
-    private final CompositeDisposable disposables = new CompositeDisposable();
-
-    public void execute(Observable<ServerResponce> observable) {
-        disposables.add(observable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(serverResponce -> System.out.println(serverResponce.getPersonalData().getDate())));
+    private void sendData() {
+        showData(personalData);
     }
 }

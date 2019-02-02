@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RestApiAdapter {
 
-    private static final String BaseURL = "https://intern-f6251.firebaseio.com/intern";
+    private static final String BaseURL = "https://intern-f6251.firebaseio.com/intern/";
 
     private static RestApiAdapter instance;
     private static ApiRequests apiRequests;
@@ -54,6 +54,7 @@ public class RestApiAdapter {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(clientBuilder.build())
                 .build();
+
         apiRequests = retrofit.create(ApiRequests.class);
     }
 

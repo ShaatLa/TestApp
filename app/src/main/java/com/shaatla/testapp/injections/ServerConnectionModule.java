@@ -20,14 +20,8 @@ import dagger.Provides;
 @Module
 public class ServerConnectionModule {
 
-    private final Context context;
-
-    public ServerConnectionModule(Context context) {
-        this.context = context;
-    }
-
     @Provides
     ServerConnectionProvider getServerConnectionProvider() {
-        return new ServerConnectionProvider(context);
+        return new ServerConnectionProvider();
     }
 }

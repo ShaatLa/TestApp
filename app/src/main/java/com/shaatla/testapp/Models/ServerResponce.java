@@ -1,5 +1,7 @@
 package com.shaatla.testapp.Models;
 
+import java.util.List;
+
 /**
  * ServerResponce
  * v.1.0
@@ -10,13 +12,13 @@ package com.shaatla.testapp.Models;
  */
 public class ServerResponce {
 
-    private PersonalData personalData;
+    private List<PersonalData> personalData;
 
-    public ServerResponce(PersonalData personalData) {
+    public ServerResponce(List<PersonalData> personalData) {
         this.personalData = personalData;
     }
 
-    public PersonalData getPersonalData() {
+    public List<PersonalData> getPersonalData() {
         return personalData;
     }
 }
